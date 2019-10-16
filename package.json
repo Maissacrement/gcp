@@ -1,0 +1,25 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod": "npx pm2 start App.js",
+    "prod:monit": "npx pm2 monit",
+    "prod:log": "npx pm2 log",
+    "prod:stats": "npx pm2 list",
+    "prod:restart": "pm2 restart App",
+    "prod:stop": "pm2 stop App"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.4",
+    "pm2": "^4.1.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
