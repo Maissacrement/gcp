@@ -3,6 +3,11 @@ const app = express();
 const cors = require('cors'); // CORS NAVIGATOR API
 const bodyParser = require('body-parser');
 
+if (process.geteuid) {
+    console.log(`Current uid: ${process.geteuid()}`);
+}
+
+console.log(`Current gids: ${process.getgroups()}`)
 
 const getJson = (_, res) => {
   console.log('yes');

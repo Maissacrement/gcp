@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "npx pm2 start App.js",
+    "prod": "npx pm2 start ecosystem.config.yml",
     "prod:monit": "npx pm2 monit",
     "prod:log": "npx pm2 log",
     "prod:stats": "npx pm2 list",
-    "prod:restart": "pm2 restart App",
-    "prod:stop": "pm2 stop App"
+    "prod:restart": "npx pm2 restart App",
+    "prod:stop": "npx pm2 stop "
   },
   "author": "",
   "license": "ISC",

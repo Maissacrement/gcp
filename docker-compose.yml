@@ -1,0 +1,7 @@
+version: "3"
+services:
+  node:
+    build: ./
+    container_name: api-app
+    ports:
+      - "5148:5148"
