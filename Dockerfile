@@ -11,8 +11,16 @@ RUN ln -s /usr/bin/nodejs /usr/sbin/node
 # CREATE AN COMPLETE USER ACCOUNT
 RUN mkdir -p ${DEV_HOME} ${DEV_HOME}/app &&\
     apk update &&\
-    apk add acl bash &&\
+    apk add acl bash openrc nginx --no-cache &&\
     reboot
+
+# NGINX
+COPY webservice-conf/nginx.conf /etc/nginx/nginx.conf 
+COPY webservice-conf/node.conf /etc/nginx/conf.d/node.conf
+
+RUN ls /etc/nginx
+RUN nginx -s reload
+RUN rc-service --list
 
 # ASSIGN CURRENT WORKSPACE
 WORKDIR ${DEV_HOME}/app
