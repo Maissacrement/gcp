@@ -10,8 +10,9 @@ RUN ln -s /usr/bin/nodejs /usr/sbin/node
 
 # CREATE AN COMPLETE USER ACCOUNT
 RUN mkdir -p ${DEV_HOME} ${DEV_HOME}/app &&\
+    apk update &&\
     apk add acl bash &&\
-    rm -rf /var/cache/apk/*
+    reboot
 
 # ASSIGN CURRENT WORKSPACE
 WORKDIR ${DEV_HOME}/app
@@ -21,7 +22,7 @@ COPY package.json .
 RUN yarn && ls
 COPY . .
 
-RUN useradd -r -u ${uid} -g '${DEV}' ${gid}
+RUN adduser -D -u ${uid} -g '${DEV}' ${gid}
 
 # ASSIGN NEW REPO TO DEV USER
 # ADD PM2 requirement user access
