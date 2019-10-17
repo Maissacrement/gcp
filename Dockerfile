@@ -21,7 +21,7 @@ COPY package.json .
 RUN yarn && ls
 COPY . .
 
-RUN adduser -D -H -u ${uid} -g '' developer
+RUN useradd -r -u ${uid} -g '${DEV}' ${gid}
 
 # ASSIGN NEW REPO TO DEV USER
 # ADD PM2 requirement user access
@@ -29,19 +29,19 @@ RUN ls && chmod +x ${DEV_HOME}/app/App.js &&\
     npx pm2 update &&\
     mkdir -p ${DEV_HOME} /home/.cache /home/.yarn &&\
     touch /tmp/.yarn-cache-1002 &&\
-    chown -R ${DEV}:${DEV} /root/.pm2 /home/.cache \
+    chown -R ${uid}:${gid} /root/.pm2 /home/.cache \
     /tmp/.yarn-cache-1002 /usr/local /home/.yarn ${DEV_HOME}
 
 # PM2 CONFIG
-RUN mkdir -p ${PM2_REPO} && chown -R ${DEV}:${DEV} ${PM2_REPO}
+RUN mkdir -p ${PM2_REPO} && chown -R ${uid}:${gid} ${PM2_REPO}
 
 #&&\adduser  -s /dev/null -D -H -g '${DEV}' nobody
 
 EXPOSE 5148
-RUN [ "npx", "pm2", "start", "--user", "${DEV}", "ecosystem.config.yml" ]
+RUN [ "npx", "pm2", "start", "-i", "${uid}", "ecosystem.config.yml" ]
 
 # CONNECT AS DEV USER
-USER ${DEV}
+USER ${uid}
 #RUN su - developer
 WORKDIR ${DEV_HOME}/app
 
