@@ -1,4 +1,4 @@
-# Image Location
+# -------- Node -------------
 FROM node:11.14.0-alpine
 
 ENV DEV=developer \
@@ -10,17 +10,7 @@ RUN ln -s /usr/bin/nodejs /usr/sbin/node
 
 # CREATE AN COMPLETE USER ACCOUNT
 RUN mkdir -p ${DEV_HOME} ${DEV_HOME}/app &&\
-    apk update &&\
-    apk add acl bash openrc nginx --no-cache &&\
-    reboot
-
-# NGINX
-COPY webservice-conf/nginx.conf /etc/nginx/nginx.conf 
-COPY webservice-conf/node.conf /etc/nginx/conf.d/node.conf
-
-RUN ls /etc/nginx
-RUN nginx -s reload
-RUN rc-service --list
+    apk update && apk add bash
 
 # ASSIGN CURRENT WORKSPACE
 WORKDIR ${DEV_HOME}/app
@@ -55,8 +45,8 @@ USER ${uid}
 WORKDIR ${DEV_HOME}/app
 
 EXPOSE 5418:5418
-RUN [ "yarn", "prod" ]
-ENTRYPOINT [ "/bin/sh" ]
+RUN ls
+ENTRYPOINT [ "/bin/bash" ]
 
 # -------- NGINX --------
 

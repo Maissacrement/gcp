@@ -9,7 +9,8 @@
     "prod:log": "npx pm2 log",
     "prod:stats": "npx pm2 list",
     "prod:restart": "npx pm2 restart App",
-    "prod:stop": "npx pm2 stop "
+    "prod:stop": "npx pm2 stop",
+    "prod:del": "npx pm2 del"
   },
   "author": "",
   "license": "ISC",
